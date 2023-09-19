@@ -5,7 +5,7 @@ const axios = require('axios')
 var UserId;
 
 var postData = {
-  "id": 0,
+  "id": 3534895348975948375,
   "category": {
     "id": 0,
     "name": "Jackie Chan"
@@ -27,9 +27,9 @@ var postData = {
    test('Post1', async () => {
     const response = await axios.post('https://petstore.swagger.io/v2/pet', 
     {
-      data: {"id": 564756345694354938543656,
+      data: {"id": 564756369435543656,
           "category": {
-            "id": 25748354936584760549645,
+            "id": 257483549349645,
             "name": "Sharik"
           },
           "name": "SnoopDog",
@@ -38,46 +38,46 @@ var postData = {
           ],
           "tags": [
             {
-              "id": 49055467549067549685946,
+              "id": 49055467549065946,
               "name": "string"
             }
           ],
           "status": "available"}
     });
     console.log(response);
-    expect(response.status()).toBe(201);
+    expect(response.status).toBe(200);
    });
 
 
    test('Post2', async () => {
     const response = await axios.post('https://petstore.swagger.io/v2/pet', postData);
     console.log(response);
-    expect(response.status()).toBe(201);
+    expect(response.status).toBe(200);
     UserId = response.id
    });
 
 
-   test('Post3', async () => {
+   test.only('Post3', async () => {
     try {
       const response = await axios.post('https://petstore.swagger.io/v2/pet', postData);
       console.log(response);
     } catch (err) {
       console.error(err);
-    }
+    } 
    })
 
 
    test('Get', async() => {
     const response = await  axios.get('https://petstore.swagger.io/v2/pet/findByStatus?status=available');
     console.log(response);
-    expect(response.status()).toBe(200);
+    expect(response.status).toBe(200);
    });
 
 
-   test.only('GetById', async() => {
-    const response = await axios.get('https://petstore.swagger.io/v2/pet/9223372036854030000');
+   test('GetById', async() => {
+    const response = await axios.get('https://petstore.swagger.io/v2/pet/3534895348975948300');
     console.log(response);
-    expect(response.status()).toBe(200);
+    expect(response.status).toBe(200);
    });
 
 
@@ -108,8 +108,8 @@ var postData = {
 
 
    test('Delete', async() => {
-    const response = await  axios.get('https://petstore.swagger.io/v2/pet/'+UserId);
-    expect(response.status()).toBe(204);
+    const response = await  axios.delete('https://petstore.swagger.io/v2/pet/3534895348975948300');
+    expect(response.status).toBe(200);
     console.log(response)
    });
 
