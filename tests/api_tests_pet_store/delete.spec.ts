@@ -1,7 +1,7 @@
 import {test, expect} from '@playwright/test'
 import axios from 'axios';
 import {faker, simpleFaker} from '@faker-js/faker';
-import { baseUrl } from '../Global_settings/constant';
+import { baseUrl } from '../global_settings/constant';
 
 
 let randomFirstName = faker.person.firstName();
