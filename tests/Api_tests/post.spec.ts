@@ -1,12 +1,14 @@
 import {test, expect} from '@playwright/test'
 import axios from 'axios';
 import {faker, simpleFaker} from '@faker-js/faker';
-import { postAndGetPet } from '../Global_settings/fake_global_values';
+import { postAndGetPet } from '../Global_settings/constant';
 
 
-let randomFirstName = faker.person.firstName(undefined);
-let randomSecondName = faker.person.lastName(undefined);
+let randomFirstName = faker.person.firstName();
+let randomSecondName = faker.person.lastName();
 let randomId = simpleFaker.string.numeric(10);
+let petId: number;
+
 
 let postData = {
   "id": randomId,
@@ -29,8 +31,12 @@ let postData = {
 
 
 test('Post', async () => {
-  console.log(postData);
     const response = await axios.post(postAndGetPet, postData);
-    console.log(response);
-   expect(response.status).toBe(200);
+    expect(response.status).toBe(200);
+    petId = response.data.id;
    });
+
+
+test.afterAll(async () => {
+    await axios.delete(`${postAndGetPet}${petId}`);
+});
