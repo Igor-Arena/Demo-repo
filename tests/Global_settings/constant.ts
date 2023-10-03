@@ -1,1 +1,1 @@
-export let postAndGetPet = 'https://petstore.swagger.io/v2/pet/';
+export let baseUrl = 'https://petstore.swagger.io/v2/pet/';
