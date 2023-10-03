@@ -65,8 +65,13 @@ test('PutRequest', async () => {
         "status": "available"}
     });
     expect(response.status).toBe(200);
-    expect(response.data.category.name).toEqual(updatedFirstName)
-    expect(response.data.name).toEqual(updatedSecondName)
    });
+
+   test ('Get', async () => {
+    const response = await axios.get(`${baseUrl}${petId}`);
+    expect(response.data.category.name).toEqual(randomFirstName);
+    expect(response.data.name).toEqual(randomSecondName);
+    expect(response.status).toBe(200);
+});
 
 

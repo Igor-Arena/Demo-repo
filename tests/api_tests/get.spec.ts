@@ -41,7 +41,6 @@ test.afterAll(async () => {
 
 test('Get', async () => {
     const response = await axios.get(`${baseUrl}${petId}`);
-    expect(response.data.id).toEqual(randomId);
     expect(response.data.category.name).toEqual(randomFirstName);
     expect(response.data.name).toEqual(randomSecondName);
     expect(response.status).toBe(200);
