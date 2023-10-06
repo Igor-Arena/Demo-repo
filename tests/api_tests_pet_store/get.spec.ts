@@ -6,7 +6,7 @@ import { baseUrl } from '../global_settings/constant';
 
 let randomFirstName = faker.person.firstName();
 let randomSecondName = faker.person.lastName();
-let randomId = simpleFaker.string.numeric(10);
+let randomId = faker.number.int(10);
 let petId: number;
 
 
@@ -41,9 +41,8 @@ test.afterAll(async () => {
 
 test('Get', async () => {
     const response = await axios.get(`${baseUrl}${petId}`);
-    expect(response.data.category.name).toEqual(randomFirstName);
-    expect(response.data.name).toEqual(randomSecondName);
     expect(response.status).toBe(200);
+    expect(response.data).toEqual(expect.objectContaining(postData));
 });
 
 

@@ -6,7 +6,7 @@ import {faker, simpleFaker} from '@faker-js/faker';
 
 let randomFirstName = faker.person.firstName();
 let randomSecondName = faker.person.lastName();
-let randomId = simpleFaker.string.numeric(10);
+let randomId = faker.number.int(10);
 let updatedFirstName = faker.person.firstName();
 let updatedSecondName = faker.person.lastName();
 let petId: number;
@@ -64,8 +64,13 @@ test('PutRequest', async () => {
         "status": "available"
     });
     expect(response.status).toBe(200);
-    expect(response.data.category.name).toEqual(updatedFirstName);
-    expect(response.data.name).toEqual(updatedSecondName);
+    expect(response.data).toMatchObject({
+      "id": petId,
+      "category": {
+        "name": updatedFirstName
+      },
+      "name": updatedSecondName
+    });
    });
 
 

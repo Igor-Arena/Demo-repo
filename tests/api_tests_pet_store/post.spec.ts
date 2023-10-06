@@ -38,9 +38,7 @@ test('Post', async () => {
     const response = await axios.post(baseUrl, postData);
     petId = response.data.id;
     expect(response.status).toBe(200);
-    expect(response.data.id).toEqual(randomIdNumber);
-    expect(response.data.category.name).toEqual(randomFirstName);
-    expect(response.data.name).toEqual(randomSecondName);
+    expect(response.data).toEqual(expect.objectContaining(postData));
    });
 
 

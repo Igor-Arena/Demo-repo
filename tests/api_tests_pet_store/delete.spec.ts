@@ -6,7 +6,7 @@ import { baseUrl } from '../global_settings/constant';
 
 let randomFirstName = faker.person.firstName();
 let randomSecondName = faker.person.lastName();
-let randomId = simpleFaker.string.numeric(10);
+let randomId = faker.number.int(10);
 let petId: number;
 
 
