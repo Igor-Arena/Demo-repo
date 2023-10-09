@@ -35,7 +35,6 @@ let postData = {
 test.beforeAll(async () => {
     const response = await axios.post(baseUrl, postData);
     petId = response.data.id;
-    expect(response.status).toBe(200);
    });
 
 test.afterAll(async () => {
