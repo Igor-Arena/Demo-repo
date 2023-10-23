@@ -1,6 +1,6 @@
 import {test, expect} from '@playwright/test'
 import axios from 'axios';
-import { baseUrl } from '../global_settings/constant';
+import { baseUrl } from '../global_settings_pet_store/constant';
 import {faker, simpleFaker} from '@faker-js/faker';
 
 
