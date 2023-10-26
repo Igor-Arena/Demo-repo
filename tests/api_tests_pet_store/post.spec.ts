@@ -1,7 +1,7 @@
 import {test, expect} from '@playwright/test'
 import axios from 'axios';
 import {faker, simpleFaker} from '@faker-js/faker';
-import { baseUrl } from '../global_settings_pet_store/constant';
+import { baseApiUrl } from '../../constant';
 
 
 let randomFirstName = faker.person.firstName();
@@ -31,11 +31,11 @@ let postData = {
 
 
 test.afterAll(async () => {
-  await axios.delete(`${baseUrl}${petId}`);
+  await axios.delete(`${baseApiUrl}${petId}`);
 });
 
 test('Post', async () => {
-    const response = await axios.post(baseUrl, postData);
+    const response = await axios.post(baseApiUrl, postData);
     petId = response.data.id;
     expect(response.status).toBe(200);
     expect(response.data).toEqual(expect.objectContaining(postData));
