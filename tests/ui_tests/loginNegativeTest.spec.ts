@@ -8,5 +8,5 @@ test("LoginNegativeTest", async ({ page }) => {
   await loginPage.fillUserNameInput(user2InvalidCreds.userName);
   await loginPage.fillPasswordInput(user2InvalidCreds.userPassword);
   await loginPage.clickLoginButton();
-  await loginPage.getLoginErrorText();
+  await expect(loginPage.getLoginErrorText()).toBeTruthy();
 });

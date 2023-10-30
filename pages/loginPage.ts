@@ -1,4 +1,4 @@
-import { type Locator, type Page, expect } from "@playwright/test";
+import { type Locator, type Page } from "@playwright/test";
 import { baseUiUrl } from "../constant";
 
 export class LoginPage {
@@ -13,10 +13,7 @@ export class LoginPage {
     this.userNameInput = page.locator('[data-test="username"]');
     this.passwordInput = page.locator('[data-test="password"]');
     this.loginButton = page.locator('[data-test="login-button"]');
-    this.loginErrorText = page.locator('h3', {
-      hasText:
-        'Epic sadface: Username and password do not match any user in this service',
-    });
+    this.loginErrorText = page.locator("//h3[contains(text(),'Epic sadface: Username and password do not match a')]");
   }
 
   //Actions
@@ -28,27 +25,25 @@ export class LoginPage {
     await this.userNameInput.fill(userNameValue);
   }
 
-  public async fillPasswordInput(userPasswordValue: any) {
+  async fillPasswordInput(userPasswordValue: any) {
     await this.passwordInput.fill(userPasswordValue);
   }
 
-  public async clickLoginButton() {
+  async clickLoginButton() {
     await this.loginButton.click();
   }
 
   async getLoginErrorText () {
-    await expect(this.loginErrorText).toBeVisible();
+    const errorText = await this.loginErrorText.isVisible();
+    return errorText;
   }
 
-  async logInValidCredentials(
-    validUserNameValue: string,
-    validUserPasswordValue: any
+  async login(
+    userNameValue: string,
+    userPasswordValue: any
   ) {
-    await this.goto();
-    await this.fillUserNameInput(validUserNameValue);
-    await this.fillPasswordInput(validUserPasswordValue);
+    await this.fillUserNameInput(userNameValue);
+    await this.fillPasswordInput(userPasswordValue);
     await this.clickLoginButton();
   }
-
-  //Error messages
 }

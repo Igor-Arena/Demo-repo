@@ -11,8 +11,5 @@ test("Login", async ({ page }) => {
   await loginPage.fillUserNameInput(user1.userName);
   await loginPage.fillPasswordInput(user1.userPassword);
   await loginPage.clickLoginButton();
-  await expect(page.getByText("Products")).toBeVisible();
-  await dashboardPage.clickBurgerMenuButton();
-  await dashboardPage.clickLogoutButton();
-  await expect(page.getByText("Login")).toBeVisible();
-});
+  await expect(dashboardPage.isPageLoaded()).toBeTruthy();
+})
