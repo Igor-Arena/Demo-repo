@@ -13,7 +13,7 @@ export class LoginPage {
     this.userNameInput = page.locator('[data-test="username"]');
     this.passwordInput = page.locator('[data-test="password"]');
     this.loginButton = page.locator('[data-test="login-button"]');
-    this.loginErrorText = page.locator("//h3[contains(text(),'Epic sadface: Username and password do not match a')]");
+    this.loginErrorText = page.locator('[data-test="error"]');
   }
 
   //Actions
@@ -34,7 +34,7 @@ export class LoginPage {
   }
 
   async getLoginErrorText () {
-    const errorText = await this.loginErrorText.isVisible();
+    const errorText = await this.loginErrorText.textContent();
     return errorText;
   }
 

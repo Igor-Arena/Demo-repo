@@ -8,5 +8,6 @@ test("LoginNegativeTest", async ({ page }) => {
   await loginPage.fillUserNameInput(user2InvalidCreds.userName);
   await loginPage.fillPasswordInput(user2InvalidCreds.userPassword);
   await loginPage.clickLoginButton();
-  await expect(loginPage.getLoginErrorText()).toBeTruthy();
+  const errorTextMessage = await loginPage.getLoginErrorText();
+  expect(errorTextMessage).toBe('Epic sadface: Username and password do not match any user in this service');
 });
