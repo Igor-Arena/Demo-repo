@@ -5,6 +5,8 @@ export class DashboardPage {
   burgerMenuButton: Locator;
   logoutButton: Locator;
   titleProducts: Locator;
+  shoppingCartIcon: Locator;
+  addToCartButton: Locator;
 
   constructor(page) {
     this.page = page;
@@ -13,6 +15,8 @@ export class DashboardPage {
     );
     this.logoutButton = page.locator("//a[@id='logout_sidebar_link']");
     this.titleProducts = page.locator(".title");
+    this.shoppingCartIcon = page.locator(".shopping_cart_link");
+    this.addToCartButton = page.locator("#add-to-cart-sauce-labs-backpack");
   }
 
   //Actions
@@ -24,8 +28,19 @@ export class DashboardPage {
     await this.logoutButton.click();
   }
 
-  async isPageLoaded() {
+  async clickAddToCartButton () {
+    await this.addToCartButton.click();
+  }
+
+async clickShoppingCartIcon () {
+    await this.shoppingCartIcon.click();
+  }
+
+  //Assertions
+  async isDashboardPageLoaded() {
     let isLoaded = await this.titleProducts.isVisible();
     return isLoaded;
   };
+  
+
 }
