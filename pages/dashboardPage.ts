@@ -24,7 +24,7 @@ export class DashboardPage {
     await this.logoutButton.click();
   }
 
-  async isPageLoaded() {
+  async isDashboardPageLoaded() {
     let isLoaded = await this.titleProducts.isVisible();
     return isLoaded;
   };
