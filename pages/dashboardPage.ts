@@ -28,19 +28,16 @@ export class DashboardPage {
     await this.logoutButton.click();
   }
 
-  async clickAddToCartButton () {
+  async clickAddToCartButton() {
     await this.addToCartButton.click();
   }
 
-async clickShoppingCartIcon () {
+  async clickShoppingCartIcon() {
     await this.shoppingCartIcon.click();
   }
 
-  //Assertions
   async isDashboardPageLoaded() {
     let isLoaded = await this.titleProducts.isVisible();
     return isLoaded;
-  };
-  
-
+  }
 }
