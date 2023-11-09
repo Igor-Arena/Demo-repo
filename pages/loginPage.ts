@@ -33,15 +33,12 @@ export class LoginPage {
     await this.loginButton.click();
   }
 
-  async getLoginErrorText () {
+  async getLoginErrorText() {
     const errorText = await this.loginErrorText.textContent();
     return errorText;
   }
 
-  async login(
-    userNameValue: string,
-    userPasswordValue: any
-  ) {
+  async login(userNameValue: string, userPasswordValue: string) {
     await this.fillUserNameInput(userNameValue);
     await this.fillPasswordInput(userPasswordValue);
     await this.clickLoginButton();

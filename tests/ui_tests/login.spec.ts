@@ -1,16 +1,37 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
+import { faker } from "@faker-js/faker";
 import { LoginPage } from "../../pages/loginPage";
 import { DashboardPage } from "../../pages/dashboardPage";
-import { user1 } from "../../constant";
+import { standardUserCredentials } from "../../constant";
 
+let page: Page;
+let loginPage: LoginPage;
+let dashboardPage: DashboardPage;
 
-test("Login", async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  const dashboardPage = new DashboardPage(page);
-  const title = dashboardPage.isDashboardPageLoaded();
+test.beforeAll(async ({ browser: Browser }) => {
+  page = await Browser.newPage();
+  loginPage = new LoginPage(page);
+  dashboardPage = new DashboardPage(page);
+});
+
+test.beforeEach(async () => {
   await loginPage.goto();
-  await loginPage.fillUserNameInput(user1.userName);
-  await loginPage.fillPasswordInput(user1.userPassword);
+});
+
+test("User can login with valid credentials", async () => {
+  await loginPage.fillUserNameInput(standardUserCredentials.userName);
+  await loginPage.fillPasswordInput(standardUserCredentials.userPassword);
   await loginPage.clickLoginButton();
-  await expect(title).toBeTruthy();
-})
+  const isDashboardPageLoaded = await dashboardPage.isDashboardPageLoaded();
+  await expect(isDashboardPageLoaded).toBeTruthy();
+});
+
+test("User can't login with invalid credentials", async () => {
+  await loginPage.fillUserNameInput(faker.person.firstName());
+  await loginPage.fillPasswordInput(faker.string.alphanumeric(10));
+  await loginPage.clickLoginButton();
+  const errorTextMessage = await loginPage.getLoginErrorText();
+  await expect(errorTextMessage).toBe(
+    "Epic sadface: Username and password do not match any user in this service"
+  );
+});
