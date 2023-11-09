@@ -7,15 +7,11 @@ import { standardUserCredentials } from "../../constant";
 let page: Page;
 let loginPage: LoginPage;
 let dashboardPage: DashboardPage;
-let randomName: string;
-let randomPassword: string;
 
 test.beforeAll(async ({ browser: Browser }) => {
   page = await Browser.newPage();
   loginPage = new LoginPage(page);
   dashboardPage = new DashboardPage(page);
-  randomName =  await faker.person.firstName();
-  randomPassword = await faker.string.alphanumeric(10);
 });
 
 test.beforeEach(async () => {
@@ -31,8 +27,8 @@ test("User can login with valid credentials", async () => {
 });
 
 test("User can't login with invalid credentials", async () => {
-  await loginPage.fillUserNameInput(randomName);
-  await loginPage.fillPasswordInput(randomPassword);
+  await loginPage.fillUserNameInput(faker.person.firstName());
+  await loginPage.fillPasswordInput(faker.string.alphanumeric(10));
   await loginPage.clickLoginButton();
   const errorTextMessage = await loginPage.getLoginErrorText();
   await expect(errorTextMessage).toBe(
