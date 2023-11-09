@@ -1,6 +1,6 @@
 import {test, expect} from '@playwright/test'
 import axios from 'axios';
-import { baseUrl } from '../global_settings/constant';
+import { baseApiUrl } from '../../constant';
 import {faker, simpleFaker} from '@faker-js/faker';
 
 
@@ -33,17 +33,17 @@ let postData = {
 
 
 test.beforeAll(async () => {
-    const response = await axios.post(baseUrl, postData);
+    const response = await axios.post(baseApiUrl, postData);
     petId = response.data.id;
    });
 
 test.afterAll(async () => {
-    await axios.delete(`${baseUrl}${petId}`);
+    await axios.delete(`${baseApiUrl}${petId}`);
 });
 
 
 test('PutRequest', async () => {
-    const response = await axios.put(baseUrl, 
+    const response = await axios.put(baseApiUrl, 
     { 
         "id": petId,
         "category": {
