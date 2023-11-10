@@ -9,7 +9,9 @@ export class ShoppingCart {
   continueButton: Locator;
   finishButton: Locator;
   backHomeButton: Locator;
-  checkoutTitle: Locator;
+  titleYourInformation: Locator;
+  titleOverview: Locator;
+  titleComplete: Locator;
 
   constructor(page) {
     this.page = page;
@@ -20,7 +22,9 @@ export class ShoppingCart {
     this.continueButton = page.locator("#continue");
     this.finishButton = page.locator("#finish");
     this.backHomeButton = page.locator("#back-to-products");
-    this.checkoutTitle = page.locator("//span[@class='title']");
+    this.titleYourInformation = page.locator('title', {name: 'Checkout: Your Information'});
+    this.titleOverview = page.locator('title', {name: 'Checkout: Overview'});
+    this.titleComplete = page.locator('title', {name: 'Checkout: Complete!'});
   }
 
   //Actions
@@ -61,11 +65,18 @@ export class ShoppingCart {
     await this.backHomeButton.click();
   }
 
-  //Assertions
-async getCheckoutTitle() {
-  const checkoutTitleText = await this.checkoutTitle.textContent();
-  return checkoutTitleText;
-}
-}
+  async getTitleYourInformation() {
+    const titleYourInformation = await this.titleYourInformation.textContent();
+    return titleYourInformation;
+  }
 
+  async getTitleOverview() {
+    const titleOverview = await this.titleOverview.textContent();
+    return titleOverview;
+  }
 
+  async getTitleComplete () {
+    const titleComplete = await this.titleComplete.textContent();
+    return titleComplete;
+  }
+}

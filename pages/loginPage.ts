@@ -1,5 +1,5 @@
 import { type Locator, type Page } from "@playwright/test";
-import { baseUiUrl } from "../standardUserCredentials";
+import { baseUiUrl } from "../constant";
 
 export class LoginPage {
   page: Page;
