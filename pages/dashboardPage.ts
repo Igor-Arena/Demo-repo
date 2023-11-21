@@ -37,7 +37,7 @@ export class DashboardPage {
   }
 
   async isDashboardPageLoaded() {
-    let isLoaded = await this.titleProducts.isVisible();
+    let isLoaded = await this.titleProducts.textContent();
     return isLoaded;
   }
 }

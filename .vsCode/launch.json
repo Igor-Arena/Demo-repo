@@ -1,0 +1,15 @@
+{"version": "0.2.0",
+  "configurations": [
+    // { "env": { "NODE_ENV": "prd" },
+    // { "env": { "NODE_ENV": "stg" },
+      { //"env": { "NODE_ENV": "int" },
+      // { "env": { "NODE_ENV": "demo" },
+      // /* Sanity           */ "command": "npx cross-env playwright test Sanity --project=chromium",
+      /* accounting_codes         */ "command": "PWDEBUG=1 npm test buyingItemE2E.spec.ts",
+ 
+ 
+ 
+      "name": "Run test debug",
+      "request": "launch",
+      "type": "node-terminal",
+    }]}
