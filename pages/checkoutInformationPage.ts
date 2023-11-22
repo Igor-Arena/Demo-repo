@@ -19,7 +19,7 @@ export class CheckoutInformationPage {
     this.continueButton = page.locator("#continue");
   }
 
-  async getTitleYourInformation() {
+  async getTitleYourInformationText() {
     const titleYourInformation = await this.titleYourInformation.textContent();
     return titleYourInformation;
   }

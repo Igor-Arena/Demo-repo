@@ -11,16 +11,16 @@ export class CheckoutCompletePage {
     this.titleComplete = page.locator("//span[@class='title']");
     this.backHomeButton = page.locator("#back-to-products");
     this.completeMessage = page.locator(
-      "//h2[normalize-space()='Thank you for your order!']"
+      ".complete-header"
     );
   }
 
-  async getTitleComplete() {
+  async getTitleCompleteText() {
     const titleComplete = await this.titleComplete.textContent();
     return titleComplete;
   }
 
-  async getCompleteMessage() {
+  async getCompleteMessageText() {
     const completeMessage = await this.completeMessage.textContent();
     return completeMessage;
   }

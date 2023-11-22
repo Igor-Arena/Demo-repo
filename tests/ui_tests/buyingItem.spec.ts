@@ -16,6 +16,7 @@ let checkoutCompletePage: CheckoutCompletePage;
 let checkoutInformationPage: CheckoutInformationPage;
 let checkoutOverviewPage: CheckoutOverviewPage;
 let getInventoryItemNameOnShoppingCartPage: string | null;
+let getInventoryItemNameOnDashboardPage: string | null;
 
 test.beforeAll(async ({ browser: Browser }) => {
   page = await Browser.newPage();
@@ -28,26 +29,30 @@ test.beforeAll(async ({ browser: Browser }) => {
   await loginPage.goto();
 });
 
-test("User can by items", async () => {
+test("User can buy items", async () => {
   test.step("Login", async () => {
     await loginPage.login(
       standardUserCredentials.userName,
       standardUserCredentials.userPassword
     );
   });
-  await test.step("Adding item and navigating to the buscket", async () => {
+  await test.step("Adding item and navigating to the basket", async () => {
     await dashboardPage.clickAddToCartButton();
+    getInventoryItemNameOnDashboardPage =
+      await dashboardPage.getInventoryItemNameText();
     await dashboardPage.clickShoppingCartIcon();
-    const getTitleYourCart = await shoppingCartPage.getTitleYourCart();
+    const getTitleYourCart = await shoppingCartPage.getTitleYourCartText();
     await expect(getTitleYourCart).toMatch("Your Cart");
   });
-  await test.step("identifying added item name on 'Your cart page'", async () => {
+  await test.step("Identifying added item name on 'Your cart page'", async () => {
     getInventoryItemNameOnShoppingCartPage =
-      await shoppingCartPage.getInventoryItemName();
-    expect(getInventoryItemNameOnShoppingCartPage).toBeTruthy();
+      await shoppingCartPage.getInventoryItemNameText();
+    await expect(getInventoryItemNameOnShoppingCartPage).toEqual(
+      getInventoryItemNameOnDashboardPage
+    );
     await shoppingCartPage.clickCheckoutButton();
     const getTitleYourInformation =
-      await checkoutInformationPage.getTitleYourInformation();
+      await checkoutInformationPage.getTitleYourInformationText();
     await expect(getTitleYourInformation).toMatch("Checkout: Your Information");
   });
   await test.step("Filling in client information", async () => {
@@ -57,24 +62,25 @@ test("User can by items", async () => {
       faker.string.numeric(5)
     );
     await checkoutInformationPage.clickContinueButton();
-    const getTitleOverview = await checkoutOverviewPage.getTitleOverview();
+    const getTitleOverview = await checkoutOverviewPage.getTitleOverviewText();
     await expect(getTitleOverview).toMatch("Checkout: Overview");
   });
   await test.step("Identifying that correct item is shown and item is bought", async () => {
     const getInventoryItemNameOnOverviewPage =
-      await checkoutOverviewPage.getInventoryItemName();
+      await checkoutOverviewPage.getInventoryItemNameText();
     await expect(getInventoryItemNameOnOverviewPage).toEqual(
       getInventoryItemNameOnShoppingCartPage
     );
     await checkoutOverviewPage.clickFinishButton();
-    const getTitleComplete = await checkoutCompletePage.getTitleComplete();
+    const getTitleComplete = await checkoutCompletePage.getTitleCompleteText();
     await expect(getTitleComplete).toMatch("Checkout: Complete!");
-    const getCompleteMessage = await checkoutCompletePage.getCompleteMessage();
+    const getCompleteMessage =
+      await checkoutCompletePage.getCompleteMessageText();
     await expect(getCompleteMessage).toMatch("Thank you for your order!");
   });
   await test.step("Navigating back to the dashboard", async () => {
     await checkoutCompletePage.clickBackHomeButton();
-    const dashboardTitle = await dashboardPage.isDashboardPageLoaded();
-    await expect(dashboardTitle).toMatch("Products");
+    const getTitleProducts = await dashboardPage.getTitleProductsText();
+    await expect(getTitleProducts).toMatch('Products');
   });
 });

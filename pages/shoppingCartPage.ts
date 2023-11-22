@@ -14,12 +14,12 @@ export class ShoppingCartPage {
   }
 
   //Actions
-  async getTitleYourCart() {
-    const titleYourCart = this.titleYourCart.textContent();
+  async getTitleYourCartText() {
+    const titleYourCart = await this.titleYourCart.textContent();
     return titleYourCart;
   }
 
-  async getInventoryItemName() {
+  async getInventoryItemNameText() {
     const inventoryItemName = await this.inventoryItemName.textContent();
     return inventoryItemName;
   }

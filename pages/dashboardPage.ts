@@ -7,6 +7,7 @@ export class DashboardPage {
   titleProducts: Locator;
   shoppingCartIcon: Locator;
   addToCartButton: Locator;
+  inventoryItemName: Locator;
 
   constructor(page) {
     this.page = page;
@@ -17,6 +18,7 @@ export class DashboardPage {
     this.titleProducts = page.locator(".title");
     this.shoppingCartIcon = page.locator(".shopping_cart_link");
     this.addToCartButton = page.locator("#add-to-cart-sauce-labs-backpack");
+    this.inventoryItemName = page.locator("a[id='item_4_title_link'] div[class='inventory_item_name ']");
   }
 
   //Actions
@@ -36,8 +38,18 @@ export class DashboardPage {
     await this.shoppingCartIcon.click();
   }
 
+  async getInventoryItemNameText() {
+    const inventoryItemName = await this.inventoryItemName.textContent();
+    return inventoryItemName;
+  }
+
   async isDashboardPageLoaded() {
-    let isLoaded = await this.titleProducts.textContent();
+    const isLoaded = await this.titleProducts.isVisible();
     return isLoaded;
+  }
+
+  async getTitleProductsText() {
+    const titleProductsText = await this.titleProducts.textContent();
+    return titleProductsText;
   }
 }

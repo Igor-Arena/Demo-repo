@@ -13,12 +13,12 @@ export class CheckoutOverviewPage {
     this.inventoryItemName = page.locator(".inventory_item_name");
   }
 
-  async getTitleOverview() {
+  async getTitleOverviewText() {
     const titleOverview = await this.titleOverview.textContent();
     return titleOverview;
   }
 
-  async getInventoryItemName() {
+  async getInventoryItemNameText() {
     const inventoryItemName = await this.inventoryItemName.textContent();
     return inventoryItemName;
   }
