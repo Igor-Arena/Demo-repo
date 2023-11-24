@@ -16,7 +16,6 @@ export class LoginPage {
     this.loginErrorText = page.locator('[data-test="error"]');
   }
 
-  //Actions
   async goto() {
     await this.page.goto(baseUiUrl);
   }

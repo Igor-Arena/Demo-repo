@@ -18,10 +18,9 @@ export class DashboardPage {
     this.titleProducts = page.locator(".title");
     this.shoppingCartIcon = page.locator(".shopping_cart_link");
     this.addToCartButton = page.locator("#add-to-cart-sauce-labs-backpack");
-    this.inventoryItemName = page.locator("a[id='item_4_title_link'] div[class='inventory_item_name ']");
+    this.inventoryItemName = page.locator(".inventory_item_name");
   }
 
-  //Actions
   async clickBurgerMenuButton() {
     await this.burgerMenuButton.click();
   }
@@ -38,9 +37,9 @@ export class DashboardPage {
     await this.shoppingCartIcon.click();
   }
 
-  async getInventoryItemNameText() {
-    const inventoryItemName = await this.inventoryItemName.textContent();
-    return inventoryItemName;
+  async getInventoryItemNameText(elementNumber) {
+    const inventoryItemName = await this.inventoryItemName.nth(elementNumber).textContent();
+    return inventoryItemName
   }
 
   async isDashboardPageLoaded() {

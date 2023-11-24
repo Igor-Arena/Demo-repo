@@ -13,7 +13,6 @@ export class ShoppingCartPage {
     this.titleYourCart = page.locator("//span[@class='title']");
   }
 
-  //Actions
   async getTitleYourCartText() {
     const titleYourCart = await this.titleYourCart.textContent();
     return titleYourCart;

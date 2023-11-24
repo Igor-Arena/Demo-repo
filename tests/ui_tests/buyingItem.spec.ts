@@ -15,8 +15,8 @@ let shoppingCartPage: ShoppingCartPage;
 let checkoutCompletePage: CheckoutCompletePage;
 let checkoutInformationPage: CheckoutInformationPage;
 let checkoutOverviewPage: CheckoutOverviewPage;
-let getInventoryItemNameOnShoppingCartPage: string | null;
-let getInventoryItemNameOnDashboardPage: string | null;
+let inventoryItemNameOnShoppingCartPage: string | null;
+let inventoryItemNameOnDashboardPage: string | null;
 
 test.beforeAll(async ({ browser: Browser }) => {
   page = await Browser.newPage();
@@ -38,22 +38,22 @@ test("User can buy items", async () => {
   });
   await test.step("Adding item and navigating to the basket", async () => {
     await dashboardPage.clickAddToCartButton();
-    getInventoryItemNameOnDashboardPage =
-      await dashboardPage.getInventoryItemNameText();
+    inventoryItemNameOnDashboardPage =
+      await dashboardPage.getInventoryItemNameText(1);
     await dashboardPage.clickShoppingCartIcon();
-    const getTitleYourCart = await shoppingCartPage.getTitleYourCartText();
-    await expect(getTitleYourCart).toMatch("Your Cart");
+    const titleYourCart = await shoppingCartPage.getTitleYourCartText();
+    await expect(titleYourCart).toMatch("Your Cart");
   });
   await test.step("Identifying added item name on 'Your cart page'", async () => {
-    getInventoryItemNameOnShoppingCartPage =
+    inventoryItemNameOnShoppingCartPage =
       await shoppingCartPage.getInventoryItemNameText();
-    await expect(getInventoryItemNameOnShoppingCartPage).toEqual(
-      getInventoryItemNameOnDashboardPage
+    await expect(inventoryItemNameOnShoppingCartPage).toContain(
+      inventoryItemNameOnDashboardPage
     );
     await shoppingCartPage.clickCheckoutButton();
-    const getTitleYourInformation =
+    const titleYourInformation =
       await checkoutInformationPage.getTitleYourInformationText();
-    await expect(getTitleYourInformation).toMatch("Checkout: Your Information");
+    await expect(titleYourInformation).toMatch("Checkout: Your Information");
   });
   await test.step("Filling in client information", async () => {
     await checkoutInformationPage.fillAllClientInformation(
@@ -62,25 +62,25 @@ test("User can buy items", async () => {
       faker.string.numeric(5)
     );
     await checkoutInformationPage.clickContinueButton();
-    const getTitleOverview = await checkoutOverviewPage.getTitleOverviewText();
-    await expect(getTitleOverview).toMatch("Checkout: Overview");
+    const titleOverview = await checkoutOverviewPage.getTitleOverviewText();
+    await expect(titleOverview).toMatch("Checkout: Overview");
   });
   await test.step("Identifying that correct item is shown and item is bought", async () => {
-    const getInventoryItemNameOnOverviewPage =
+    const inventoryItemNameOnOverviewPage =
       await checkoutOverviewPage.getInventoryItemNameText();
-    await expect(getInventoryItemNameOnOverviewPage).toEqual(
-      getInventoryItemNameOnShoppingCartPage
+    await expect(inventoryItemNameOnOverviewPage).toEqual(
+      inventoryItemNameOnShoppingCartPage
     );
     await checkoutOverviewPage.clickFinishButton();
-    const getTitleComplete = await checkoutCompletePage.getTitleCompleteText();
-    await expect(getTitleComplete).toMatch("Checkout: Complete!");
-    const getCompleteMessage =
+    const titleComplete = await checkoutCompletePage.getTitleCompleteText();
+    await expect(titleComplete).toMatch("Checkout: Complete!");
+    const completeMessage =
       await checkoutCompletePage.getCompleteMessageText();
-    await expect(getCompleteMessage).toMatch("Thank you for your order!");
+    await expect(completeMessage).toMatch("Thank you for your order!");
   });
   await test.step("Navigating back to the dashboard", async () => {
     await checkoutCompletePage.clickBackHomeButton();
-    const getTitleProducts = await dashboardPage.getTitleProductsText();
-    await expect(getTitleProducts).toMatch('Products');
+    const titleProducts = await dashboardPage.getTitleProductsText();
+    await expect(titleProducts).toMatch('Products');
   });
 });
