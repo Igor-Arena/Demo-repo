@@ -39,7 +39,7 @@ test("User can buy items", async () => {
   await test.step("Adding item and navigating to the basket", async () => {
     await dashboardPage.clickAddToCartButton();
     inventoryItemNameOnDashboardPage =
-      await dashboardPage.getInventoryItemNameText(1);
+      await dashboardPage.getInventoryItemNameText(0);
     await dashboardPage.clickShoppingCartIcon();
     const titleYourCart = await shoppingCartPage.getTitleYourCartText();
     await expect(titleYourCart).toMatch("Your Cart");
