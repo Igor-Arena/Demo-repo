@@ -30,7 +30,7 @@ test.beforeAll(async ({ browser: Browser }) => {
 });
 
 test("User can buy items", async () => {
-  test.step("Login", async () => {
+  await test.step("Login", async () => {
     await loginPage.login(
       standardUserCredentials.userName,
       standardUserCredentials.userPassword
