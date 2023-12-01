@@ -8,6 +8,8 @@ export class DashboardPage {
   shoppingCartIcon: Locator;
   addToCartButton: Locator;
   inventoryItemName: Locator;
+  inventoryItemsPriceArray: Locator;
+  sortingDropdownList: Locator;
 
   constructor(page) {
     this.page = page;
@@ -19,6 +21,8 @@ export class DashboardPage {
     this.shoppingCartIcon = page.locator(".shopping_cart_link");
     this.addToCartButton = page.locator("#add-to-cart-sauce-labs-backpack");
     this.inventoryItemName = page.locator(".inventory_item_name");
+    this.inventoryItemsPriceArray = page.locator(".inventory_item_price");
+    this.sortingDropdownList = page.locator(".product_sort_container");
   }
 
   async clickBurgerMenuButton() {
@@ -38,8 +42,27 @@ export class DashboardPage {
   }
 
   async getInventoryItemNameText(elementNumber) {
-    const inventoryItemName = await this.inventoryItemName.nth(elementNumber).textContent();
-    return inventoryItemName
+    const inventoryItemName = await this.inventoryItemName
+      .nth(elementNumber)
+      .textContent();
+    return inventoryItemName;
+  }
+
+  async getInventoryItemsPriceArray() {
+    const itemsStringArray =
+      await this.inventoryItemsPriceArray.allTextContents();
+    const ArrayWithoutText = itemsStringArray.map((num) => {
+      return num.replace("$", "");
+    });
+    const NumberArray = ArrayWithoutText.map(Number);
+    return NumberArray;
+  }
+
+  async sortInventoryItemsPriceArray() {
+    const sortedNumberArray = (
+      await this.getInventoryItemsPriceArray()
+    ).sort((a, b) => b - a);
+    return sortedNumberArray;
   }
 
   async isDashboardPageLoaded() {
@@ -50,5 +73,9 @@ export class DashboardPage {
   async getTitleProductsText() {
     const titleProductsText = await this.titleProducts.textContent();
     return titleProductsText;
+  }
+
+  async selectSortingFromDropdownList() {
+    await this.sortingDropdownList.selectOption({ value: "hilo" });
   }
 }
