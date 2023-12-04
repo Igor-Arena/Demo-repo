@@ -11,11 +11,11 @@ test.beforeAll(async ({ browser: Browser }) => {
   page = await Browser.newPage();
   loginPage = new LoginPage(page);
   dashboardPage = new DashboardPage(page);
-  await loginPage.goto();
 });
 
 test("User can sort item from high to low price", async () => {
   await test.step("Login", async () => {
+    await loginPage.goto();
     await loginPage.login(
       standardUserCredentials.userName,
       standardUserCredentials.userPassword
@@ -24,9 +24,9 @@ test("User can sort item from high to low price", async () => {
 
   await test.step("Select sorting from High to Low price", async () => {
     await dashboardPage.getInventoryItemsPriceArray();
-    const sortedItemsByPlaywright = await dashboardPage.sortInventoryItemsPriceArray();
-    await dashboardPage.selectSortingFromDropdownList();
-    const sortedItemByFilter = await dashboardPage.getInventoryItemsPriceArray();
-    expect(sortedItemsByPlaywright).toEqual(sortedItemByFilter);
+    const expectedPrices = await dashboardPage.sortInventoryItemsPriceArray("descending");
+    await dashboardPage.selectSortingFromDropdownList("hilo");
+    const actualPrices = await dashboardPage.getInventoryItemsPriceArray();
+    expect(expectedPrices).toEqual(actualPrices);
   });
 });

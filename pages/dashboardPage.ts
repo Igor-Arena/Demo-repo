@@ -8,7 +8,7 @@ export class DashboardPage {
   shoppingCartIcon: Locator;
   addToCartButton: Locator;
   inventoryItemName: Locator;
-  inventoryItemsPriceArray: Locator;
+  inventoryItemsPrice: Locator;
   sortingDropdownList: Locator;
 
   constructor(page) {
@@ -21,7 +21,7 @@ export class DashboardPage {
     this.shoppingCartIcon = page.locator(".shopping_cart_link");
     this.addToCartButton = page.locator("#add-to-cart-sauce-labs-backpack");
     this.inventoryItemName = page.locator(".inventory_item_name");
-    this.inventoryItemsPriceArray = page.locator(".inventory_item_price");
+    this.inventoryItemsPrice = page.locator(".inventory_item_price");
     this.sortingDropdownList = page.locator(".product_sort_container");
   }
 
@@ -49,20 +49,27 @@ export class DashboardPage {
   }
 
   async getInventoryItemsPriceArray() {
-    const itemsStringArray =
-      await this.inventoryItemsPriceArray.allTextContents();
-    const ArrayWithoutText = itemsStringArray.map((num) => {
+    const itemsStringArray = await this.inventoryItemsPrice.allTextContents();
+    const numbersArray = itemsStringArray.map((num) => {
       return num.replace("$", "");
     });
-    const NumberArray = ArrayWithoutText.map(Number);
-    return NumberArray;
+    const numberArray = numbersArray.map(Number);
+    return numberArray;
   }
 
-  async sortInventoryItemsPriceArray() {
-    const sortedNumberArray = (
-      await this.getInventoryItemsPriceArray()
-    ).sort((a, b) => b - a);
-    return sortedNumberArray;
+  async sortInventoryItemsPriceArray(sortingType: "descending" | "ascending") {
+    if (sortingType === "descending") {
+      const sortedNumberArray = (await this.getInventoryItemsPriceArray()).sort(
+        (a, b) => b - a
+      );
+      return sortedNumberArray;
+    }
+    if (sortingType === "ascending") {
+      const sortedNumberArray = (await this.getInventoryItemsPriceArray()).sort(
+        (a, b) => a - b
+      );
+      return sortedNumberArray;
+    }
   }
 
   async isDashboardPageLoaded() {
@@ -75,7 +82,7 @@ export class DashboardPage {
     return titleProductsText;
   }
 
-  async selectSortingFromDropdownList() {
-    await this.sortingDropdownList.selectOption({ value: "hilo" });
+  async selectSortingFromDropdownList(value) {
+    await this.sortingDropdownList.selectOption(value);
   }
 }
