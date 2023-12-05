@@ -50,25 +50,19 @@ export class DashboardPage {
 
   async getInventoryItemsPriceArray() {
     const itemsStringArray = await this.inventoryItemsPrice.allTextContents();
-    const numbersArray = itemsStringArray.map((num) => {
+    const priceStringArray = itemsStringArray.map((num) => {
       return num.replace("$", "");
     });
-    const numberArray = numbersArray.map(Number);
-    return numberArray;
+    const priceNumberArray = priceStringArray.map(Number);
+    return priceNumberArray;
   }
 
   async sortInventoryItemsPriceArray(sortingType: "descending" | "ascending") {
     if (sortingType === "descending") {
-      const sortedNumberArray = (await this.getInventoryItemsPriceArray()).sort(
-        (a, b) => b - a
-      );
-      return sortedNumberArray;
+      return (await this.getInventoryItemsPriceArray()).sort((a, b) => b - a);
     }
     if (sortingType === "ascending") {
-      const sortedNumberArray = (await this.getInventoryItemsPriceArray()).sort(
-        (a, b) => a - b
-      );
-      return sortedNumberArray;
+      return (await this.getInventoryItemsPriceArray()).sort((a, b) => a - b);
     }
   }
 
@@ -82,7 +76,7 @@ export class DashboardPage {
     return titleProductsText;
   }
 
-  async selectSortingFromDropdownList(value) {
-    await this.sortingDropdownList.selectOption(value);
+  async sortItemsByOption(option) {
+    await this.sortingDropdownList.selectOption(option);
   }
 }
