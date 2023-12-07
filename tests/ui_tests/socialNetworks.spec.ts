@@ -16,18 +16,17 @@ test.beforeAll(async ({ browser: Browser}) => {
 
 });
 
-test("User can navigate to social networks", async ({context}) => {
-  await test.step("Login", async () => {
+  test("Login", async () => {
     await loginPage.goto();
     await loginPage.login(
       standardUserCredentials.userName,
       standardUserCredentials.userPassword
     );
   });
-
+  
   const allSocialNetworks = ["twitter", "facebook", "linkedin"];
   for (const socialNetwork of allSocialNetworks) {
-  await test.step (`testing with ${socialNetwork}`, async () => {
+  test(`testing with ${socialNetwork}`, async ({context}) => {
     const pagePromise = context.waitForEvent('page')
    await dashboardPage.navigateToSocialNetwork(socialNetwork)
    const newPage = await pagePromise;
@@ -36,5 +35,4 @@ test("User can navigate to social networks", async ({context}) => {
    //expect(page).toHaveURL('https://www.facebook.com/saucelabs');
    //expect(page).toHaveURL('https://www.linkedin.com/company/sauce-labs/');
   })
-}
-});
+};
