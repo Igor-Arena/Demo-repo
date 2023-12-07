@@ -10,6 +10,10 @@ export class DashboardPage {
   inventoryItemName: Locator;
   inventoryItemsPrice: Locator;
   sortingDropdownList: Locator;
+  socialNetworks: Locator;
+  twitterIcon: Locator;
+  facebookIcon: Locator;
+  linkedinIcon: Locator;
 
   constructor(page) {
     this.page = page;
@@ -23,6 +27,10 @@ export class DashboardPage {
     this.inventoryItemName = page.locator(".inventory_item_name");
     this.inventoryItemsPrice = page.locator(".inventory_item_price");
     this.sortingDropdownList = page.locator(".product_sort_container");
+    this.twitterIcon = page.locator(".social_twitter a");
+    this.facebookIcon = page.locator(".social_facebook a");
+    this.linkedinIcon = page.locator(".social_linkedin a");
+    this.socialNetworks = page.locator(".social a");
   }
 
   async clickBurgerMenuButton() {
@@ -79,4 +87,16 @@ export class DashboardPage {
   async sortItemsByOption(option) {
     await this.sortingDropdownList.selectOption(option);
   }
-}
+
+  async navigateToSocialNetwork(name) {
+    if ("twitter") {
+      await this.twitterIcon.click();
+    }
+    if ("facebook") {
+      await this.facebookIcon.click();
+    }
+    if ("linkedin") {
+      await this.linkedinIcon.click();
+    }
+  }
+} 
