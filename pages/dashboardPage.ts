@@ -89,13 +89,13 @@ export class DashboardPage {
   }
 
   async navigateToSocialNetwork(name) {
-    if ("twitter") {
+    if (name === "twitter") {
       await this.twitterIcon.click();
     }
-    if ("facebook") {
+    if (name === "facebook") {
       await this.facebookIcon.click();
     }
-    if ("linkedin") {
+    if (name === "linkedin") {
       await this.linkedinIcon.click();
     }
   }
