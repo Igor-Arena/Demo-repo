@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import { Locator, Page, expect } from "@playwright/test";
 
 export class DashboardPage {
   page: Page;
@@ -91,12 +91,26 @@ export class DashboardPage {
   async navigateToSocialNetwork(name) {
     if (name === "twitter") {
       await this.twitterIcon.click();
+      //return "twitter";
     }
     if (name === "facebook") {
       await this.facebookIcon.click();
+      //return "facebook";
     }
     if (name === "linkedin") {
       await this.linkedinIcon.click();
+      //return "linkedin";
+    }
+  }
+  async checkingSocialmediaURLs(name) {
+    if (name === "twitter") {
+      expect(this.page).toHaveURL("https://twitter.com/saucelabs")
+    }
+    if (name === "facebook") {
+      expect(this.page).toHaveURL("https://www.facebook.com/saucelabs")
+    }
+    if (name === "linkedin") {
+      expect(this.page).toHaveURL("https://www.linkedin.com/company/sauce-labs/")
     }
   }
 } 
