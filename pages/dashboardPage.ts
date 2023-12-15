@@ -30,7 +30,6 @@ export class DashboardPage {
     this.twitterIcon = page.locator(".social_twitter a");
     this.facebookIcon = page.locator(".social_facebook a");
     this.linkedinIcon = page.locator(".social_linkedin a");
-    this.socialNetworks = page.locator(".social a");
   }
 
   async clickBurgerMenuButton() {
@@ -88,29 +87,7 @@ export class DashboardPage {
     await this.sortingDropdownList.selectOption(option);
   }
 
-  async navigateToSocialNetwork(name) {
-    if (name === "twitter") {
-      await this.twitterIcon.click();
-      //return "twitter";
-    }
-    if (name === "facebook") {
-      await this.facebookIcon.click();
-      //return "facebook";
-    }
-    if (name === "linkedin") {
-      await this.linkedinIcon.click();
-      //return "linkedin";
-    }
-  }
-  async checkingSocialmediaURLs(name) {
-    if (name === "twitter") {
-      expect(this.page).toHaveURL("https://twitter.com/saucelabs")
-    }
-    if (name === "facebook") {
-      expect(this.page).toHaveURL("https://www.facebook.com/saucelabs")
-    }
-    if (name === "linkedin") {
-      expect(this.page).toHaveURL("https://www.linkedin.com/company/sauce-labs/")
-    }
+  async navigateToSocialNetwork(socialNetworkName) {
+    await this.page.locator(`li.social_${socialNetworkName}`).click();
   }
 } 

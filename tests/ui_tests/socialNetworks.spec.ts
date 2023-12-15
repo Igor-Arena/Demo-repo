@@ -1,4 +1,4 @@
-import { test, Page } from "@playwright/test";
+import { test, Page, expect } from "@playwright/test";
 import { LoginPage } from "../../pages/loginPage";
 import { DashboardPage } from "../../pages/dashboardPage";
 import { standardUserCredentials } from "../../constant";
@@ -6,7 +6,20 @@ import { standardUserCredentials } from "../../constant";
 let page: Page;
 let loginPage: LoginPage;
 let dashboardPage: DashboardPage;
-const allSocialNetworks = ["twitter", "facebook", "linkedin"];
+const allSocialNetworks = [
+  {
+    name: "twitter",
+    link: "https://twitter.com/saucelabs",
+  },
+  {
+    name: "facebook",
+    link: "https://www.facebook.com/saucelabs",
+  },
+  {
+    name: "linkedin",
+    link: "https://www.linkedin.com/company/sauce-labs/",
+  },
+];
 
 test.beforeAll(async ({ browser: Browser }) => {
   page = await Browser.newPage();
@@ -15,17 +28,19 @@ test.beforeAll(async ({ browser: Browser }) => {
 });
 
 for (const socialNetwork of allSocialNetworks) {
-  test(`testing with ${socialNetwork}`, async () => {
+  test(`Navigating to social network: ${socialNetwork.name}`, async () => {
     await loginPage.goto();
     await loginPage.login(
       standardUserCredentials.userName,
       standardUserCredentials.userPassword
     );
-    
-    const pagePromise = page.context().waitForEvent("page")
-    const socialNetworkURL = await dashboardPage.navigateToSocialNetwork(socialNetwork);
+
+    const pagePromise = page.context().waitForEvent("page");
+    await dashboardPage.navigateToSocialNetwork(
+      socialNetwork.name
+    );
     const newPage = await pagePromise;
     await newPage.waitForLoadState();
-    await dashboardPage.checkingSocialmediaURLs(socialNetworkURL);  
+    await expect(newPage).toHaveURL(socialNetwork.link)
   });
 }
