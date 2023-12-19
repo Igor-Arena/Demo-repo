@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import { Locator, Page, expect } from "@playwright/test";
 
 export class DashboardPage {
   page: Page;
@@ -79,4 +79,8 @@ export class DashboardPage {
   async sortItemsByOption(option) {
     await this.sortingDropdownList.selectOption(option);
   }
-}
+
+  async navigateToSocialNetwork(socialNetworkName) {
+    await this.page.locator(`li.social_${socialNetworkName}`).click();
+  }
+} 
