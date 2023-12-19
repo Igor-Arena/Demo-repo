@@ -10,10 +10,6 @@ export class DashboardPage {
   inventoryItemName: Locator;
   inventoryItemsPrice: Locator;
   sortingDropdownList: Locator;
-  socialNetworks: Locator;
-  twitterIcon: Locator;
-  facebookIcon: Locator;
-  linkedinIcon: Locator;
 
   constructor(page) {
     this.page = page;
@@ -27,9 +23,6 @@ export class DashboardPage {
     this.inventoryItemName = page.locator(".inventory_item_name");
     this.inventoryItemsPrice = page.locator(".inventory_item_price");
     this.sortingDropdownList = page.locator(".product_sort_container");
-    this.twitterIcon = page.locator(".social_twitter a");
-    this.facebookIcon = page.locator(".social_facebook a");
-    this.linkedinIcon = page.locator(".social_linkedin a");
   }
 
   async clickBurgerMenuButton() {
