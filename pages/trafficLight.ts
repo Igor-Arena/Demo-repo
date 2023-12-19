@@ -1,5 +1,5 @@
 export class TrafficLight {
-    private lightIndex: number;
+    private lightIndex: number | any;
 
     constructor() {
         this.lightIndex = 0;
@@ -17,7 +17,7 @@ export class TrafficLight {
         return TrafficLight.colors.length;
     }
 
-    setLight(index: number): void {
+    setLight(index: number | string): void {
         this.lightIndex = index;
     }
 
