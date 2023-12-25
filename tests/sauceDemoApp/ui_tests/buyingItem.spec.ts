@@ -1,12 +1,12 @@
 import { test, expect, Page } from "@playwright/test";
 import { faker } from "@faker-js/faker";
-import { LoginPage } from "../../pages/loginPage";
-import { DashboardPage } from "../../pages/dashboardPage";
-import { ShoppingCartPage } from "../../pages/shoppingCartPage";
-import { CheckoutCompletePage } from "../../pages/checkoutCompletePage";
-import { CheckoutInformationPage } from "../../pages/checkoutInformationPage";
-import { CheckoutOverviewPage } from "../../pages/checkoutOverviewPage";
-import { standardUserCredentials } from "../../constant";
+import { LoginPage } from "..//..//..//pages/sauceDemoApp/loginPage";
+import { DashboardPage } from "..//..//..//pages/sauceDemoApp/dashboardPage";
+import { ShoppingCartPage } from "..//..//..//pages/sauceDemoApp/shoppingCartPage";
+import { CheckoutCompletePage } from "..//..//..//pages/sauceDemoApp/checkoutCompletePage";
+import { CheckoutInformationPage } from "..//..//..//pages/sauceDemoApp/checkoutInformationPage";
+import { CheckoutOverviewPage } from "..//..//..//pages/sauceDemoApp/checkoutOverviewPage";
+import { standardUserCredentials } from "..//..//..//constant";
 
 let page: Page;
 let loginPage: LoginPage;

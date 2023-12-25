@@ -1,8 +1,8 @@
 import { test, expect, Page } from "@playwright/test";
 import { faker } from "@faker-js/faker";
-import { LoginPage } from "../../pages/loginPage";
-import { DashboardPage } from "../../pages/dashboardPage";
-import { standardUserCredentials } from "../../constant";
+import { LoginPage } from "..//..//..//pages/sauceDemoApp/loginPage";
+import { DashboardPage } from "..//..//..//pages/sauceDemoApp/dashboardPage";
+import { standardUserCredentials } from "..//..//..//constant";
 
 let page: Page;
 let loginPage: LoginPage;
