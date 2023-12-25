@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { faker } from "@faker-js/faker";
-import { TrafficLight } from "../../src/trafficLight";
+import { TrafficLight } from "../../../src/trafficLight";
 
 const trafficLight = new TrafficLight();
 

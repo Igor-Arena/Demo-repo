@@ -1,6 +1,6 @@
 import {test, expect} from '@playwright/test'
 import axios from 'axios';
-import { baseApiUrl } from '../../constant';
+import { baseApiUrl } from '../../../constant';
 import {faker, simpleFaker} from '@faker-js/faker';
 
 
